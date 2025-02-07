@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/blanchonvincent/go-PolarDNS/internal"
+	"github.com/learn-dns-security-com/gothdns/internal"
 	"github.com/miekg/dns"
 	"os"
 	"os/signal"

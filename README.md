@@ -25,7 +25,7 @@ or raw bytes of DNS packet with the [PacketParser](packet/parser.go)
 ## How to run it?
 
 ```
-docker run -d -p 53:53/udp -p 53:53/tcp --name gothdns blanchonvincent/go-polardns:main
+docker run -d -p 53:53/udp -p 53:53/tcp --name gothdns learn-dns-security-com/gothdns:main
 
 dig @127.0.0.1 -p 53 static-ip.foo.com
 ```

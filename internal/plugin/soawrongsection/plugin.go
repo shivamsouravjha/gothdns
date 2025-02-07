@@ -1,7 +1,7 @@
 package soawrongsection
 
 import (
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin"
 	"github.com/miekg/dns"
 	"go.uber.org/zap"
 	"strings"

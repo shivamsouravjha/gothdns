@@ -1,4 +1,4 @@
-module github.com/blanchonvincent/go-PolarDNS
+module github.com/learn-dns-security-com/gothdns
 
 go 1.22.0
 

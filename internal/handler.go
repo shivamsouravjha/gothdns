@@ -1,16 +1,16 @@
 package internal
 
 import (
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/echo"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/ednsformerr"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/emptyresponse"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/headeronly"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/headerquestion"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/noednssupport"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/nullbytes"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/soawrongsection"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/staticip"
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin/wrongid"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/echo"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/ednsformerr"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/emptyresponse"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/headeronly"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/headerquestion"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/noednssupport"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/nullbytes"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/soawrongsection"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/staticip"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/wrongid"
 	"github.com/miekg/dns"
 	"go.uber.org/zap"
 )

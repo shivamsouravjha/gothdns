@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugintest"
+	"github.com/learn-dns-security-com/gothdns/internal/plugintest"
 	"github.com/miekg/dns"
 	"go.uber.org/zap"
 	"testing"

@@ -1,8 +1,8 @@
 package ednsformerr
 
 import (
-	"github.com/blanchonvincent/go-PolarDNS/internal/plugin"
-	"github.com/blanchonvincent/go-PolarDNS/packet"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin"
+	"github.com/learn-dns-security-com/gothdns/packet"
 	"github.com/miekg/dns"
 	"go.uber.org/zap"
 	"strings"

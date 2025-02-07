@@ -2,7 +2,7 @@ package headeronly
 
 import (
 	"fmt"
-	"github.com/blanchonvincent/go-PolarDNS/binary"
+	"github.com/learn-dns-security-com/gothdns/binary"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
