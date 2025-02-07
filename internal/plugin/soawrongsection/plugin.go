@@ -12,9 +12,10 @@ type Plugin struct {
 }
 
 func NewPlugin(logger *zap.Logger) *Plugin {
-	return &Plugin{
-		logger: logger,
-	}
+	p := new(Plugin)
+	p.logger = logger.With(zap.String("plugin", p.Name()))
+
+	return p
 }
 
 func (p *Plugin) Reply(m *dns.Msg) []byte {

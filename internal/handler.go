@@ -6,6 +6,7 @@ import (
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/emptyresponse"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/headeronly"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/headerquestion"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/nodobitsupport"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/noednssupport"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/nullbytes"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/soawrongsection"
@@ -24,16 +25,17 @@ func NewRequestHandler(logger *zap.Logger) *RequestHandler {
 	return &RequestHandler{
 		logger: logger,
 		plugins: []Plugin{
-			new(echo.Plugin),
+			echo.NewPlugin(logger),
 			ednsformerr.NewPlugin(logger),
-			new(emptyresponse.Plugin),
+			emptyresponse.NewPlugin(logger),
 			headeronly.NewPlugin(logger),
-			new(headerquestion.Plugin),
-			new(noednssupport.Plugin),
-			new(nullbytes.Plugin),
+			headerquestion.NewPlugin(logger),
+			nodobitsupport.NewPlugin(logger),
+			noednssupport.NewPlugin(logger),
+			nullbytes.NewPlugin(logger),
 			soawrongsection.NewPlugin(logger),
 			staticip.NewPlugin(logger),
-			new(wrongid.Plugin),
+			wrongid.NewPlugin(logger),
 		},
 	}
 }

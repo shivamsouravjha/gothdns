@@ -4,10 +4,20 @@ import (
 	"github.com/learn-dns-security-com/gothdns/internal/plugin"
 	"github.com/learn-dns-security-com/gothdns/packet"
 	"github.com/miekg/dns"
+	"go.uber.org/zap"
 	"strings"
 )
 
-type Plugin struct{}
+type Plugin struct {
+	logger *zap.Logger
+}
+
+func NewPlugin(logger *zap.Logger) *Plugin {
+	p := new(Plugin)
+	p.logger = logger.With(zap.String("plugin", p.Name()))
+
+	return p
+}
 
 func (p *Plugin) Reply(m *dns.Msg) []byte {
 	if m == nil {

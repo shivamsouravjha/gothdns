@@ -1,4 +1,4 @@
-package noednssupport
+package nodobitsupport
 
 import (
 	"github.com/learn-dns-security-com/gothdns/internal/plugin"
@@ -33,27 +33,40 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 	}
 
 	if opt := m.IsEdns0(); opt != nil {
-		return plugin.DropPacket
+		if !opt.Do() {
+			r := new(dns.Msg)
+			r.SetReply(m)
+			r.Rcode = dns.RcodeNameError
+			r.Extra = append(r.Extra, opt)
+
+			b, err := r.Pack()
+			if err != nil {
+				p.logger.Error("failed to pack DNS option", zap.Error(err))
+
+				return nil
+			}
+			return b
+		}
 	}
 
 	return nil
 }
 
 func (p *Plugin) Description() string {
-	return "This plugin discard any packet that comes with OPT record."
+	return "This plugin discard any packet that comes with EDNS0 DO bit to zero."
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost no-edns-support.foo.com +edns`"
+	return "`dig @localhost no-dobit-support.foo.com +edns +nodnssec`"
 }
 
 func (p *Plugin) Name() string {
-	return "no-edns-support"
+	return "no-dobit-support"
 }
 
 func (p *Plugin) DNSViolation() plugin.Violation {
 	return plugin.Violation{
-		Identifier: "DVE-2020-0004",
-		Link:       "https://github.com/dns-violations/dns-violations/blob/master/2020/DVE-2020-0004.md",
+		Identifier: "DVE-2018-0001",
+		Link:       "https://github.com/dns-violations/dns-violations/blob/master/2018/DVE-2018-0001.md",
 	}
 }
