@@ -1,2 +1,4 @@
 ignore:
   - "internal/docs"  # independent binary
+  - "internal/markdowntest"  # mock
+  - "internal/plugintest"  # mock

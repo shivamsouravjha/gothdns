@@ -6,6 +6,7 @@ import (
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/zap"
 	"testing"
 )
 
@@ -18,7 +19,7 @@ func TestPlugin_Reply(t *testing.T) {
 					m.SetQuestion(dns.Fqdn("wrong-id.foo.com"), dns.TypeA)
 					m.Id = id
 
-					p := new(Plugin)
+					p := NewPlugin(zap.NewNop())
 					b := p.Reply(m)
 					require.NotNil(t, b)
 
@@ -31,6 +32,20 @@ func TestPlugin_Reply(t *testing.T) {
 					assert.Equal(t, plugin.DefaultIp.String(), r.Answer[0].(*dns.A).A.String(), r.String())
 				})
 			}
+		})
+	})
+
+	t.Run("unhappy path", func(t *testing.T) {
+		t.Run("nil message", func(t *testing.T) {
+			p := NewPlugin(zap.NewNop())
+			b := p.Reply(nil)
+			require.Nil(t, b)
+		})
+
+		t.Run("0 questions", func(t *testing.T) {
+			p := NewPlugin(zap.NewNop())
+			b := p.Reply(new(dns.Msg))
+			require.Nil(t, b)
 		})
 	})
 }

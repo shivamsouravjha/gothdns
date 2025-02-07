@@ -22,7 +22,7 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 	if m == nil {
 		return nil
 	}
-	if len(m.Question) == 0 {
+	if len(m.Question) != 1 {
 		return nil
 	}
 
