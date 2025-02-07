@@ -1,4 +1,4 @@
-[![Unit tests](https://github.com/learn-dns-security-com/gothdns/actions/workflows/unit-tests.yaml/badge.svg)](https://github.com/learn-dns-security-com/gothdns/actions/workflows/unit-tests.yaml)
+[![Unit tests](https://github.com/learn-dns-security-com/gothdns/actions/workflows/unit-tests.yaml/badge.svg)](https://github.com/learn-dns-security-com/gothdns/actions/workflows/unit-tests.yaml) [![codecov](https://codecov.io/gh/learn-dns-security-com/gothdns/graph/badge.svg?token=TR795YUP5B)](https://codecov.io/gh/learn-dns-security-com/gothdns)
 
 `gothDNS` (short version of Go Authoritative DNS) is a DNS authoritative server written in Go able to re-play a list of
 DNS unusual cases in order to test the resilience of DNS resolvers.
