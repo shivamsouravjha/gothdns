@@ -17,4 +17,9 @@ jobs:
 
       - name: Run tests
         run: |
-          docker exec gauth-dns sh -c "go test ./... -p 1 -race -v"
+          docker exec gauth-dns sh -c "go test ./... -p 1 -race -v -coverprofile=coverage.txt"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
