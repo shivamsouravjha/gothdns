@@ -28,6 +28,10 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 	}
 
 	question := m.Question[0]
+	if question.Qtype != dns.TypeA {
+		return nil
+	}
+
 	labels := strings.Split(question.Name, ".")
 	if strings.ToLower(labels[0]) != p.Name() {
 		return nil
@@ -54,11 +58,17 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 		return b
 	}
 
-	return nil
+	b, err := plugin.ReplyWithDefaultARecord(m)
+	if err != nil {
+		p.logger.Error("failed create response", zap.Error(err))
+
+		return nil
+	}
+	return b
 }
 
 func (p *Plugin) Description() string {
-	return "This plugin reply FORMERR with QUESTION section."
+	return "This plugin reply FORMERR for any query with EDNS and a valid IP for query without EDNS.\nSupport for A record only."
 }
 
 func (p *Plugin) Examples() string {

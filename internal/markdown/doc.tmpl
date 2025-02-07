@@ -1,0 +1,11 @@
+This documentation is auto-generated. Each plugin own its part of documentation based on [PluginSelfDescribing](internal/plugin.go) and [RegisteredDNSViolations](internal/plugin.go) interfaces.
+
+{{range .}}
+## {{.Name}}
+{{if .Description}}{{.Description}}{{else}}No description available yet{{end}}
+{{if .Examples}}
+
+#### Examples
+{{.Examples}}
+{{end}}
+{{if .ViolationID}}{{if .ViolationLink}}#### DNS Violation: [{{.ViolationID}}]({{.ViolationLink}}){{else}}#### DNS Violation: {{.ViolationID}}{{end}}{{end}}{{end}}

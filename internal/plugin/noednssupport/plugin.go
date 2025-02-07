@@ -27,6 +27,10 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 	}
 
 	question := m.Question[0]
+	if question.Qtype != dns.TypeA {
+		return nil
+	}
+
 	labels := strings.Split(question.Name, ".")
 	if strings.ToLower(labels[0]) != p.Name() {
 		return nil
@@ -36,11 +40,17 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 		return plugin.DropPacket
 	}
 
-	return nil
+	b, err := plugin.ReplyWithDefaultARecord(m)
+	if err != nil {
+		p.logger.Error("failed create response", zap.Error(err))
+
+		return nil
+	}
+	return b
 }
 
 func (p *Plugin) Description() string {
-	return "This plugin discard any packet that comes with OPT record."
+	return "This plugin discard any packet that comes with OPT record.\nSupport for A record only."
 }
 
 func (p *Plugin) Examples() string {

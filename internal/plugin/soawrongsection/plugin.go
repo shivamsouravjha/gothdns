@@ -65,7 +65,7 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 }
 
 func (p *Plugin) Description() string {
-	return "This plugin reply to SOA query by setting up the SOA in AUTHORITY section rather than ANSWER."
+	return "This plugin reply to SOA query by setting up the SOA in AUTHORITY section rather than ANSWER.\nSupport for SOA record only."
 }
 
 func (p *Plugin) Examples() string {

@@ -47,25 +47,29 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 
 	pp, err := packet.NewMessageParser(r)
 	if err != nil {
-		// todo log
+		p.logger.Error("failed to parse DNS response", zap.Error(err))
+
 		return nil
 	}
 
 	bh, err := pp.Header()
 	if err != nil {
-		// todo log
+		p.logger.Error("failed to parse DNS header", zap.Error(err))
+
 		return nil
 	}
 
 	ps, err := pp.Question()
 	if err != nil {
-		// todo log
+		p.logger.Error("failed to parse DNS question", zap.Error(err))
+
 		return nil
 	}
 
 	bq, err := pp.Read(ps)
 	if err != nil {
-		// todo log
+		p.logger.Error("failed to parse read slice of DNS packet", zap.Error(err))
+
 		return nil
 	}
 

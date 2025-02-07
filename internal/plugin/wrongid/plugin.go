@@ -51,7 +51,7 @@ func (p *Plugin) Reply(m *dns.Msg) []byte {
 
 	b, err := r.Pack()
 	if err != nil {
-		// todo log
+		p.logger.Error("failed to pack DNS response", zap.Error(err))
 
 		return nil
 	}
