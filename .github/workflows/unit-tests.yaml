@@ -9,15 +9,15 @@ jobs:
 
       - name: Build docker image
         run: |
-          docker build -f dev.Dockerfile -t gauth-dns .
+          docker build -f dev.Dockerfile -t gothdns .
 
       - name: Run docker image
         run: |
-          docker run --name gauth-dns --rm -w /app -d -v $(pwd):/app gauth-dns
+          docker run --name gothdns --rm -w /app -d -v $(pwd):/app gothdns
 
       - name: Run tests
         run: |
-          docker exec gauth-dns sh -c "go test ./... -p 1 -race -v -coverprofile=coverage.txt"
+          docker exec gothdns sh -c "go test ./... -p 1 -race -v -coverprofile=coverage.txt"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5

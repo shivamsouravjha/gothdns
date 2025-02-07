@@ -8,10 +8,10 @@ doc:
 
 .PHONY: build
 build:
-	docker build -f dev.Dockerfile -t gauth-dns .
+	docker build -f dev.Dockerfile -t gothdns .
 
 .PHONY: up
 up:
-	docker stop gauth-dns || true
-	docker rm gauth-dns || true
-	docker run --name gauth-dns --rm -w /app -d -v $$(pwd):/app gauth-dns
+	docker stop gothdns || true
+	docker rm gothdns || true
+	docker run --name gothdns --rm -w /app -d -v $$(pwd):/app gothdns
