@@ -21,7 +21,7 @@ options of the DNS packet. `gothDNS` focus on scenarios that would act as end-to
 - a clear SDK to write custom modules. It can manipulate whole messages thanks to [miekg/dns](https://github.com/miekg/dns)
 or raw bytes of DNS packet with the [PacketParser](packet/parser.go)
 - reusable GitHub Workflow to test your own resolver
-- integration with PowerDNS recursor
+- integration with [PowerDNS recursor](https://docs.powerdns.com/recursor/indexTOC.html)
 - automatic plugins documentation generation
 
 ## How to run it?
