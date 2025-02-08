@@ -86,3 +86,42 @@ func TestResponseWriter_TsigStatus(t *testing.T) {
     }
 }
 
+// Test generated using Keploy
+func TestBytesReceived_Shift_NonEmpty(t *testing.T) {
+    br := BytesReceived{[]byte("first"), []byte("second")}
+    result := br.Shift()
+    if string(result) != "first" {
+        t.Errorf("Expected 'first', got %v", string(result))
+    }
+}
+
+
+// Test generated using Keploy
+func TestMessagesReceived_Shift_NonEmpty(t *testing.T) {
+    msg1 := &dns.Msg{Question: []dns.Question{{Name: "example1.com."}}}
+    msg2 := &dns.Msg{Question: []dns.Question{{Name: "example2.com."}}}
+    mr := MessagesReceived{msg1, msg2}
+    result := mr.Shift()
+    if result != msg1 {
+        t.Errorf("Expected %v, got %v", msg1, result)
+    }
+}
+
+
+// Test generated using Keploy
+func TestResponseWriter_Write(t *testing.T) {
+    rw := &ResponseWriter{}
+    data := []byte("test data")
+    n, err := rw.Write(data)
+    if err != nil {
+        t.Errorf("Expected no error, got %v", err)
+    }
+    if n != 0 {
+        t.Errorf("Expected 0 bytes written, got %d", n)
+    }
+    if len(rw.Bytes) != 1 || string(rw.Bytes[0]) != "test data" {
+        t.Errorf("Expected Bytes to contain 'test data', got %v", rw.Bytes)
+    }
+}
+
+
