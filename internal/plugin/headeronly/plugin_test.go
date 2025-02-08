@@ -2,12 +2,13 @@ package headeronly
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/learn-dns-security-com/gothdns/binary"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -53,4 +54,13 @@ func TestPlugin_Reply(t *testing.T) {
 			require.Nil(t, b)
 		})
 	})
+}
+
+// Test generated using Keploy
+func TestPlugin_Examples_ReturnsCorrectString(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	examples := p.Examples()
+
+	expected := "`dig @localhost headeronly.foo.com`"
+	assert.Equal(t, expected, examples)
 }
