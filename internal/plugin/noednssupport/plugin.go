@@ -54,11 +54,11 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost no-edns-support.foo.com +edns`"
+	return "`dig @localhost noednssupport.foo.com +edns`"
 }
 
 func (p *Plugin) Name() string {
-	return "no-edns-support"
+	return "noednssupport"
 }
 
 func (p *Plugin) DNSViolation() plugin.Violation {

@@ -52,9 +52,9 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost null-bytes.foo.com` with 1 NULL byte or `dig @localhost null-bytes.20.foo.com` for 20 NULL bytes"
+	return "`dig @localhost nullbytes.foo.com` with 1 NULL byte or `dig @localhost nullbytes.20.foo.com` for 20 NULL bytes"
 }
 
 func (p *Plugin) Name() string {
-	return "null-bytes"
+	return "nullbytes"
 }

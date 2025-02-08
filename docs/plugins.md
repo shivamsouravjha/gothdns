@@ -9,7 +9,7 @@ This plugin reply the exact same bytes it receives.
 `dig @localhost echo.foo.com`
 
 
-## edns-formerr
+## ednsformerr
 This plugin reply FORMERR for any query with EDNS and a valid IP for query without EDNS.
 Support for A record only.
 
@@ -18,28 +18,28 @@ Support for A record only.
 `dig @localhost ednsformerr.foo.com +edns`
 
 #### DNS Violation: [DVE-2020-0001](https://github.com/dns-violations/dns-violations/blob/master/2020/DVE-2020-0001.md)
-## empty-response
+## emptyresponse
 This plugin reply an empty message.
 
 
 #### Examples
-`dig @localhost empty-response.foo.com`
+`dig @localhost emptyresponse.foo.com`
 
 
-## header-only
+## headeronly
 This plugin truncates the response to the header only. The original response had 1 RR in ANSWER section.
 
 
 #### Examples
-`dig @localhost header-only.foo.com`
+`dig @localhost headeronly.foo.com`
 
 
-## header-question
+## headerquestion
 This plugin truncates the response to the header + question only. The original response had 1 RR in ANSWER section.
 
 
 #### Examples
-`dig @localhost header-question.foo.com`
+`dig @localhost headerquestion.foo.com`
 
 
 ## no-dobit-support
@@ -51,45 +51,45 @@ Support for A record only.
 `dig @localhost no-dobit-support.foo.com +edns +nodnssec`
 
 #### DNS Violation: [DVE-2018-0001](https://github.com/dns-violations/dns-violations/blob/master/2018/DVE-2018-0001.md)
-## no-edns-support
+## noednssupport
 This plugin discard any packet that comes with OPT record.
 Support for A record only.
 
 
 #### Examples
-`dig @localhost no-edns-support.foo.com +edns`
+`dig @localhost noednssupport.foo.com +edns`
 
 #### DNS Violation: [DVE-2020-0004](https://github.com/dns-violations/dns-violations/blob/master/2020/DVE-2020-0004.md)
-## null-bytes
+## nullbytes
 This plugin responds with only NULL bytes.
 
 
 #### Examples
-`dig @localhost null-bytes.foo.com` with 1 NULL byte or `dig @localhost null-bytes.20.foo.com` for 20 NULL bytes
+`dig @localhost nullbytes.foo.com` with 1 NULL byte or `dig @localhost nullbytes.20.foo.com` for 20 NULL bytes
 
 
-## soa-wrong-section
+## soawrongsection
 This plugin reply to SOA query by setting up the SOA in AUTHORITY section rather than ANSWER.
 Support for SOA record only.
 
 
 #### Examples
-`dig @localhost soa-wrong-section.foo.com`
+`dig @localhost soawrongsection.foo.com`
 
 #### DNS Violation: [DVE-2020-0002](https://github.com/dns-violations/dns-violations/blob/master/2020/DVE-2020-0002.md)
-## static-ip
+## staticip
 This plugin allow you to get returned a static IP (by default `127.0.0.1`) or define your own from the query.
 Only support A record for now.
 
 
 #### Examples
-`dig @localhost static-ip.foo.com` or `dig @localhost static-ip.1.2.3.4.foo.com` to get `1.2.3.4` back in the ANSWER section.
+`dig @localhost staticip.foo.com` or `dig @localhost staticip.1.2.3.4.foo.com` to get `1.2.3.4` back in the ANSWER section.
 
 
-## wrong-id
+## mismatchid
 This plugin answer with a transaction ID mismatch
 
 
 #### Examples
-`dig @localhost wrong-id.foo.com`
+`dig @localhost mismatchid.foo.com`
 

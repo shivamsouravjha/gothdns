@@ -15,7 +15,7 @@ func TestPlugin_Reply(t *testing.T) {
 			for _, qt := range []uint16{dns.TypeA, dns.TypeAAAA, dns.TypeTXT} {
 				t.Run(fmt.Sprintf("qt %d", qt), func(t *testing.T) {
 					m := new(dns.Msg)
-					m.SetQuestion(dns.Fqdn("null-bytes.foo.com"), qt)
+					m.SetQuestion(dns.Fqdn("nullbytes.foo.com"), qt)
 
 					p := NewPlugin(zap.NewNop())
 					b := p.Reply(m)
@@ -31,7 +31,7 @@ func TestPlugin_Reply(t *testing.T) {
 			for _, qt := range []uint16{dns.TypeA, dns.TypeAAAA, dns.TypeTXT} {
 				t.Run(fmt.Sprintf("qt %d", qt), func(t *testing.T) {
 					m := new(dns.Msg)
-					m.SetQuestion(dns.Fqdn("null-bytes.8.foo.com"), dns.TypeA)
+					m.SetQuestion(dns.Fqdn("nullbytes.8.foo.com"), dns.TypeA)
 
 					p := NewPlugin(zap.NewNop())
 					b := p.Reply(m)
@@ -45,7 +45,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("mix subdomain numbers and letters", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("null-bytes.8d.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("nullbytes.8d.foo.com"), dns.TypeA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)

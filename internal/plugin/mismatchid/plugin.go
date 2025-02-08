@@ -1,4 +1,4 @@
-package wrongid
+package mismatchid
 
 import (
 	"github.com/learn-dns-security-com/gothdns/internal/plugin"
@@ -64,9 +64,9 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost wrong-id.foo.com`"
+	return "`dig @localhost mismatchid.foo.com`"
 }
 
 func (p *Plugin) Name() string {
-	return "wrong-id"
+	return "mismatchid"
 }

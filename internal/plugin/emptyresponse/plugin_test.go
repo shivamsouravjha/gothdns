@@ -11,7 +11,7 @@ import (
 func TestPlugin_Reply(t *testing.T) {
 	t.Run("happy path", func(t *testing.T) {
 		m := new(dns.Msg)
-		m.SetQuestion(dns.Fqdn("empty-response.foo.com"), dns.TypeA)
+		m.SetQuestion(dns.Fqdn("emptyresponse.foo.com"), dns.TypeA)
 
 		p := NewPlugin(zap.NewNop())
 		b := p.Reply(m)

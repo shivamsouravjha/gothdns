@@ -11,7 +11,7 @@ inputs:
     type: int
 
   # plugins gothdns
-  static-ip:
+  staticip:
     required: true
     type: bool
   ednsformerr:
@@ -23,7 +23,7 @@ inputs:
   noednssupport:
     required: true
     type: bool
-  wrongid:
+  mismatchid:
     required: true
     type: bool
 runs:
@@ -45,11 +45,11 @@ runs:
         docker run -d --name gothdns --network gothdns --ip "192.168.0.11" learndnssecurity/gothdns:main
         sleep 5
 
-    - name: plugin static-ip
+    - name: plugin staticip
       shell: bash
-      if: ${{ inputs.static-ip }}
+      if: ${{ inputs.staticip }}
       run: |
-        output=$(dig @127.0.0.1 -p ${{ inputs.port }} static-ip.goth.dns A +edns)
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} staticip.goth.dns A +edns)
         
         echo "output: $output"
         echo $output | grep "NOERROR"
@@ -59,7 +59,7 @@ runs:
       shell: bash
       if: ${{ inputs.ednsformerr }}
       run: |
-        output=$(dig @127.0.0.1 -p ${{ inputs.port }} edns-formerr.goth.dns A +edns)
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} ednsformerr.goth.dns A +edns)
         
         echo "output: $output"
         echo $output | grep "NOERROR"
@@ -79,17 +79,17 @@ runs:
       shell: bash
       if: ${{ inputs.noednssupport }}
       run: |
-        output=$(dig @127.0.0.1 -p ${{ inputs.port }} no-edns-support.goth.dns A +edns)
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} noednssupport.goth.dns A +edns)
         
         echo "output: $output"
         echo $output | grep "NOERROR"
         echo $output | grep "127.0.0.1"
 
-    - name: plugin wrongid
+    - name: plugin mismatchid
       shell: bash
       if: ${{ inputs.noednssupport }}
       run: |
-        output=$(dig @127.0.0.1 -p ${{ inputs.port }} wrong-id.goth.dns A +edns)
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} mismatchid.goth.dns A +edns)
         
         echo "output: $output"
         echo $output | grep "SERVFAIL"

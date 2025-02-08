@@ -72,9 +72,9 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost static-ip.foo.com` or `dig @localhost static-ip.1.2.3.4.foo.com` to get `1.2.3.4` back in the ANSWER section."
+	return "`dig @localhost staticip.foo.com` or `dig @localhost staticip.1.2.3.4.foo.com` to get `1.2.3.4` back in the ANSWER section."
 }
 
 func (p *Plugin) Name() string {
-	return "static-ip"
+	return "staticip"
 }

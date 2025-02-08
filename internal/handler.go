@@ -6,12 +6,12 @@ import (
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/emptyresponse"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/headeronly"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/headerquestion"
+	"github.com/learn-dns-security-com/gothdns/internal/plugin/mismatchid"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/nodobitsupport"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/noednssupport"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/nullbytes"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/soawrongsection"
 	"github.com/learn-dns-security-com/gothdns/internal/plugin/staticip"
-	"github.com/learn-dns-security-com/gothdns/internal/plugin/wrongid"
 	"github.com/miekg/dns"
 	"go.uber.org/zap"
 )
@@ -35,7 +35,7 @@ func NewRequestHandler(logger *zap.Logger) *RequestHandler {
 			nullbytes.NewPlugin(logger),
 			soawrongsection.NewPlugin(logger),
 			staticip.NewPlugin(logger),
-			wrongid.NewPlugin(logger),
+			mismatchid.NewPlugin(logger),
 		},
 	}
 }

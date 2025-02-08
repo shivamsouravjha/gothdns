@@ -69,11 +69,11 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost soa-wrong-section.foo.com`"
+	return "`dig @localhost soawrongsection.foo.com`"
 }
 
 func (p *Plugin) Name() string {
-	return "soa-wrong-section"
+	return "soawrongsection"
 }
 
 func (p *Plugin) DNSViolation() plugin.Violation {

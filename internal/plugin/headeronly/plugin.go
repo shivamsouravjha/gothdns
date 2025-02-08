@@ -67,9 +67,9 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost header-only.foo.com`"
+	return "`dig @localhost headeronly.foo.com`"
 }
 
 func (p *Plugin) Name() string {
-	return "header-only"
+	return "headeronly"
 }

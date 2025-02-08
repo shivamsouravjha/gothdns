@@ -39,9 +39,9 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost empty-response.foo.com`"
+	return "`dig @localhost emptyresponse.foo.com`"
 }
 
 func (p *Plugin) Name() string {
-	return "empty-response"
+	return "emptyresponse"
 }

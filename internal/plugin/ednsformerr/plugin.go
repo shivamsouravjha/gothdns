@@ -76,7 +76,7 @@ func (p *Plugin) Examples() string {
 }
 
 func (p *Plugin) Name() string {
-	return "edns-formerr"
+	return "ednsformerr"
 }
 
 func (p *Plugin) DNSViolation() plugin.Violation {

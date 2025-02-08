@@ -85,9 +85,9 @@ func (p *Plugin) Description() string {
 }
 
 func (p *Plugin) Examples() string {
-	return "`dig @localhost header-question.foo.com`"
+	return "`dig @localhost headerquestion.foo.com`"
 }
 
 func (p *Plugin) Name() string {
-	return "header-question"
+	return "headerquestion"
 }

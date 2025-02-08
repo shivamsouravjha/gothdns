@@ -1,4 +1,4 @@
-package wrongid
+package mismatchid
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ func TestPlugin_Reply(t *testing.T) {
 			for _, id := range []uint16{1, 123, 65535} {
 				t.Run(fmt.Sprint(id), func(t *testing.T) {
 					m := new(dns.Msg)
-					m.SetQuestion(dns.Fqdn("wrong-id.foo.com"), dns.TypeA)
+					m.SetQuestion(dns.Fqdn("mismatchid.foo.com"), dns.TypeA)
 					m.Id = id
 
 					p := NewPlugin(zap.NewNop())

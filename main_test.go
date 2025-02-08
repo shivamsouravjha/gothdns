@@ -24,7 +24,7 @@ func TestMainFunction(t *testing.T) {
 			time.Sleep(time.Millisecond * 200)
 
 			msg := new(dns.Msg)
-			msg.SetQuestion(dns.Fqdn("static-ip.foo.com"), dns.TypeA)
+			msg.SetQuestion(dns.Fqdn("staticip.foo.com"), dns.TypeA)
 
 			c := new(dns.Client)
 			c.Net = protocol
@@ -33,7 +33,7 @@ func TestMainFunction(t *testing.T) {
 
 			require.Equal(t, dns.RcodeSuccess, r.Rcode)
 			require.Equal(t, 1, len(r.Answer))
-			require.Equal(t, `static-ip.foo.com.	60	IN	A	127.0.0.1`, r.Answer[0].String())
+			require.Equal(t, `staticip.foo.com.	60	IN	A	127.0.0.1`, r.Answer[0].String())
 
 			p, err := os.FindProcess(os.Getpid())
 			require.NoError(t, err)
@@ -64,7 +64,7 @@ func TestRun(t *testing.T) {
 				time.Sleep(time.Millisecond * 200)
 
 				m := new(dns.Msg)
-				m.SetQuestion(dns.Fqdn("static-ip.foo.com"), dns.TypeA)
+				m.SetQuestion(dns.Fqdn("staticip.foo.com"), dns.TypeA)
 
 				c := new(dns.Client)
 				c.Net = protocol
@@ -73,7 +73,7 @@ func TestRun(t *testing.T) {
 
 				require.Equal(t, dns.RcodeSuccess, r.Rcode)
 				require.Equal(t, 1, len(r.Answer))
-				require.Equal(t, `static-ip.foo.com.	60	IN	A	127.0.0.1`, r.Answer[0].String())
+				require.Equal(t, `staticip.foo.com.	60	IN	A	127.0.0.1`, r.Answer[0].String())
 			})
 		}
 	})

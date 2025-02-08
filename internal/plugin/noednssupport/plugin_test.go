@@ -12,7 +12,7 @@ import (
 func TestPlugin_Reply(t *testing.T) {
 	t.Run("happy path", func(t *testing.T) {
 		m := new(dns.Msg)
-		m.SetQuestion(dns.Fqdn("no-edns-support.foo.com"), dns.TypeA)
+		m.SetQuestion(dns.Fqdn("noednssupport.foo.com"), dns.TypeA)
 		m.Id = 12345
 		m.SetEdns0(1232, true)
 
@@ -37,7 +37,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("not type A", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("no-edns-support.foo.com"), dns.TypeTXT)
+			m.SetQuestion(dns.Fqdn("noednssupport.foo.com"), dns.TypeTXT)
 			m.Id = 12345
 
 			p := NewPlugin(zap.NewNop())
@@ -47,7 +47,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("no EDNS", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("no-edns-support.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("noednssupport.foo.com"), dns.TypeA)
 			m.Id = 12345
 
 			p := NewPlugin(zap.NewNop())

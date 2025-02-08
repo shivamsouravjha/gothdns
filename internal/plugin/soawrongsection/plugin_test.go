@@ -11,7 +11,7 @@ import (
 func TestPlugin_Reply(t *testing.T) {
 	t.Run("happy path", func(t *testing.T) {
 		m := new(dns.Msg)
-		m.SetQuestion(dns.Fqdn("soa-wrong-section.foo.com"), dns.TypeSOA)
+		m.SetQuestion(dns.Fqdn("soawrongsection.foo.com"), dns.TypeSOA)
 
 		p := NewPlugin(zap.NewNop())
 		b := p.Reply(m)
@@ -23,7 +23,7 @@ func TestPlugin_Reply(t *testing.T) {
 		assert.Equal(t, dns.RcodeSuccess, r.Rcode, r.String())
 		require.Equal(t, 0, len(r.Answer), r.String())
 		require.Equal(t, 1, len(r.Ns), r.String())
-		require.Equal(t, `soa-wrong-section.foo.com.	60	IN	SOA	ns.foo.com. hostmaster.foo.com. 20240207 3600 3600 3600 3600`, r.Ns[0].String(), r.String())
+		require.Equal(t, `soawrongsection.foo.com.	60	IN	SOA	ns.foo.com. hostmaster.foo.com. 20240207 3600 3600 3600 3600`, r.Ns[0].String(), r.String())
 	})
 
 	t.Run("unhappy path", func(t *testing.T) {
@@ -41,7 +41,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("not type SOA", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("soa-wrong-section.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("soawrongsection.foo.com"), dns.TypeA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)

@@ -15,7 +15,7 @@ func TestPlugin_Reply(t *testing.T) {
 		for _, qt := range []uint16{dns.TypeA, dns.TypeAAAA, dns.TypeTXT} {
 			t.Run(fmt.Sprintf("qt %d", qt), func(t *testing.T) {
 				m := new(dns.Msg)
-				m.SetQuestion(dns.Fqdn("header-only.foo.com"), qt)
+				m.SetQuestion(dns.Fqdn("headeronly.foo.com"), qt)
 				m.Id = 12345
 
 				p := NewPlugin(zap.NewNop())

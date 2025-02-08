@@ -13,7 +13,7 @@ func TestPlugin_Reply(t *testing.T) {
 	t.Run("happy path", func(t *testing.T) {
 		t.Run("default IP", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("static-ip.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("staticip.foo.com"), dns.TypeA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)
@@ -29,7 +29,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("chosen IP", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("static-ip.1.2.3.4.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("staticip.1.2.3.4.foo.com"), dns.TypeA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)
@@ -45,7 +45,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("wrong IP format", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("static-ip.1.2.3.bar.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("staticip.1.2.3.bar.foo.com"), dns.TypeA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)
@@ -75,7 +75,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("wrong type", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("static-ip.foo.com"), dns.TypeAAAA)
+			m.SetQuestion(dns.Fqdn("staticip.foo.com"), dns.TypeAAAA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)
@@ -85,7 +85,7 @@ func TestPlugin_Reply(t *testing.T) {
 
 		t.Run("wrong name", func(t *testing.T) {
 			m := new(dns.Msg)
-			m.SetQuestion(dns.Fqdn("static-ips.foo.com"), dns.TypeA)
+			m.SetQuestion(dns.Fqdn("staticips.foo.com"), dns.TypeA)
 
 			p := NewPlugin(zap.NewNop())
 			b := p.Reply(m)

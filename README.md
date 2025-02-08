@@ -29,7 +29,7 @@ or raw bytes of DNS packet with the [PacketParser](packet/parser.go)
 ```
 docker run -d -p 53:53/udp -p 53:53/tcp --name gothdns learndnssecurity/gothdns:main
 
-dig @127.0.0.1 -p 53 static-ip.foo.com
+dig @127.0.0.1 -p 53 staticip.foo.com
 ```
 
 ## Documentation

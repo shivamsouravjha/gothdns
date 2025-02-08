@@ -31,7 +31,7 @@ func TestRequestHandler(t *testing.T) {
 		w := new(plugintest.ResponseWriter)
 
 		m := new(dns.Msg)
-		m.SetQuestion(dns.Fqdn("static-ip.foo.com"), dns.TypeA)
+		m.SetQuestion(dns.Fqdn("staticip.foo.com"), dns.TypeA)
 
 		rh := NewRequestHandler(zap.NewNop())
 		rh.ServeDNS(w, m)
