@@ -1,12 +1,13 @@
 package staticip
 
 import (
+	"testing"
+
 	"github.com/learn-dns-security-com/gothdns/internal/plugin"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -93,4 +94,20 @@ func TestPlugin_Reply(t *testing.T) {
 			require.Nil(t, b)
 		})
 	})
+}
+
+// Test generated using Keploy
+func TestPlugin_Description(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	description := p.Description()
+	expected := "This plugin allow you to get returned a static IP (by default `127.0.0.1`) or define your own from the query.\nOnly support A record for now."
+	assert.Equal(t, expected, description)
+}
+
+// Test generated using Keploy
+func TestPlugin_Examples(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	examples := p.Examples()
+	expected := "`dig @localhost staticip.foo.com` or `dig @localhost staticip.1.2.3.4.foo.com` to get `1.2.3.4` back in the ANSWER section."
+	assert.Equal(t, expected, examples)
 }

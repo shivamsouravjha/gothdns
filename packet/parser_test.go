@@ -2,12 +2,13 @@ package packet
 
 import (
 	"fmt"
+	"net"
+	"testing"
+
 	"github.com/learn-dns-security-com/gothdns/binary"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"net"
-	"testing"
 )
 
 func TestPacketParser_Question(t *testing.T) {
@@ -209,4 +210,52 @@ func TestPacketParser_Answer(t *testing.T) {
 			fmt.Sprintf("%.8b", b),
 		)
 	})
+}
+
+// Test generated using Keploy
+func TestNewPacketParser_EmptyByteSlice_Error(t *testing.T) {
+	pp, err := NewPacketParser([]byte{})
+	require.NotNil(t, pp)
+	require.NoError(t, err)
+}
+
+// Test generated using Keploy
+func TestPacketParser_Header_SmallPacket_Error(t *testing.T) {
+	pp, err := NewPacketParser([]byte{0x00, 0x01, 0x02, 0x03, 0x04})
+	require.NoError(t, err)
+
+	header, err := pp.Header()
+	require.Nil(t, header)
+	require.EqualError(t, err, "packet is too small to have an header")
+}
+
+// Test generated using Keploy
+func TestPacketParser_ANCOUNT_SmallPacket_Error(t *testing.T) {
+	pp, err := NewPacketParser([]byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06})
+	require.NoError(t, err)
+
+	ancount, err := pp.ANCOUNT()
+	require.Equal(t, uint16(0), ancount)
+	require.EqualError(t, err, "packet is too small to have ANCOUNT flag")
+}
+
+// Test generated using Keploy
+func TestPacketParser_Read_InvalidSlice_Error(t *testing.T) {
+	pp, err := NewPacketParser([]byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07})
+	require.NoError(t, err)
+
+	ps := PacketSlice{start: 0, end: 20}
+	data, err := pp.Read(ps)
+	require.Nil(t, data)
+	require.EqualError(t, err, "packet too small")
+}
+
+// Test generated using Keploy
+func TestPacketParser_Answer_InvalidQuestion_Error(t *testing.T) {
+	pp, err := NewPacketParser([]byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07})
+	require.NoError(t, err)
+
+	ps, err := pp.Answer()
+	require.Equal(t, PacketSlice{}, ps)
+	require.Error(t, err)
 }

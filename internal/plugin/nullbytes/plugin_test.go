@@ -2,11 +2,12 @@ package nullbytes
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -69,4 +70,31 @@ func TestPlugin_Reply(t *testing.T) {
 			require.Nil(t, b)
 		})
 	})
+}
+
+// Test generated using Keploy
+func TestPlugin_Reply_InvalidQuestionName_ReturnsNil(t *testing.T) {
+	m := new(dns.Msg)
+	m.SetQuestion(dns.Fqdn("invalid.foo.com"), dns.TypeA)
+
+	p := NewPlugin(zap.NewNop())
+	b := p.Reply(m)
+
+	require.Nil(t, b)
+}
+
+// Test generated using Keploy
+func TestPlugin_Description_ReturnsCorrectString(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	desc := p.Description()
+
+	assert.Equal(t, "This plugin responds with only NULL bytes.", desc)
+}
+
+// Test generated using Keploy
+func TestPlugin_Examples_ReturnsCorrectString(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	examples := p.Examples()
+
+	assert.Equal(t, "`dig @localhost nullbytes.foo.com` with 1 NULL byte or `dig @localhost nullbytes.20.foo.com` for 20 NULL bytes", examples)
 }

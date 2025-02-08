@@ -1,12 +1,13 @@
 package noednssupport
 
 import (
+	"testing"
+
 	"github.com/learn-dns-security-com/gothdns/internal/plugin"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -62,4 +63,42 @@ func TestPlugin_Reply(t *testing.T) {
 			assert.Equal(t, "127.0.0.1", r.Answer[0].(*dns.A).A.String(), r.String())
 		})
 	})
+}
+
+// Test generated using Keploy
+func TestPlugin_Reply_FirstLabelMismatch_ReturnsNil(t *testing.T) {
+	m := new(dns.Msg)
+	m.SetQuestion(dns.Fqdn("invalid.foo.com"), dns.TypeA)
+	m.Id = 12345
+
+	p := NewPlugin(zap.NewNop())
+	b := p.Reply(m)
+	require.Nil(t, b)
+}
+
+// Test generated using Keploy
+func TestPlugin_Description_ReturnsCorrectString(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	expected := "This plugin discard any packet that comes with OPT record.\nSupport for A record only."
+	actual := p.Description()
+	require.Equal(t, expected, actual)
+}
+
+// Test generated using Keploy
+func TestPlugin_Examples_ReturnsCorrectString(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	expected := "`dig @localhost noednssupport.foo.com +edns`"
+	actual := p.Examples()
+	require.Equal(t, expected, actual)
+}
+
+// Test generated using Keploy
+func TestPlugin_DNSViolation_ReturnsCorrectDetails(t *testing.T) {
+	p := NewPlugin(zap.NewNop())
+	expected := plugin.Violation{
+		Identifier: "DVE-2020-0004",
+		Link:       "https://github.com/dns-violations/dns-violations/blob/master/2020/DVE-2020-0004.md",
+	}
+	actual := p.DNSViolation()
+	require.Equal(t, expected, actual)
 }

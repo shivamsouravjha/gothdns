@@ -2,12 +2,13 @@ package headerquestion
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/learn-dns-security-com/gothdns/binary"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -56,4 +57,15 @@ func TestPlugin_Reply(t *testing.T) {
 			require.Nil(t, b)
 		})
 	})
+}
+
+// Test generated using Keploy
+func TestPlugin_Reply_InvalidQuestionName(t *testing.T) {
+	m := new(dns.Msg)
+	m.SetQuestion(dns.Fqdn("invalid.foo.com"), dns.TypeA)
+	m.Id = 12345
+
+	p := NewPlugin(zap.NewNop())
+	b := p.Reply(m)
+	require.Nil(t, b)
 }

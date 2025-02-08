@@ -1,11 +1,11 @@
 package emptyresponse
 
 import (
-	"github.com/miekg/dns"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
-	"testing"
+    "github.com/miekg/dns"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/require"
+    "go.uber.org/zap"
+    "testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -34,3 +34,35 @@ func TestPlugin_Reply(t *testing.T) {
 		})
 	})
 }
+
+// Test generated using Keploy
+func TestPlugin_Reply_InvalidQuestionName(t *testing.T) {
+    m := new(dns.Msg)
+    m.SetQuestion(dns.Fqdn("invalid.foo.com"), dns.TypeA)
+
+    p := NewPlugin(zap.NewNop())
+    b := p.Reply(m)
+
+    require.Nil(t, b)
+}
+
+
+// Test generated using Keploy
+func TestPlugin_Description(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    desc := p.Description()
+
+    expected := "This plugin reply an empty message."
+    require.Equal(t, expected, desc)
+}
+
+
+// Test generated using Keploy
+func TestPlugin_Examples(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    examples := p.Examples()
+
+    expected := "`dig @localhost emptyresponse.foo.com`"
+    require.Equal(t, expected, examples)
+}
+

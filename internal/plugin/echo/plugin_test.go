@@ -1,11 +1,11 @@
 package echo
 
 import (
-	"github.com/miekg/dns"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
-	"testing"
+    "github.com/miekg/dns"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/require"
+    "go.uber.org/zap"
+    "testing"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -39,3 +39,32 @@ func TestPlugin_Reply(t *testing.T) {
 		})
 	})
 }
+
+// Test generated using Keploy
+func TestPlugin_Reply_InvalidFirstLabel(t *testing.T) {
+    m := new(dns.Msg)
+    m.SetQuestion(dns.Fqdn("invalid.foo.com"), dns.TypeA)
+    m.Id = 12345
+    m.SetEdns0(1232, true)
+
+    p := NewPlugin(zap.NewNop())
+    b := p.Reply(m)
+    require.Nil(t, b)
+}
+
+
+// Test generated using Keploy
+func TestPlugin_Description(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    desc := p.Description()
+    require.Equal(t, "This plugin reply the exact same bytes it receives.", desc)
+}
+
+
+// Test generated using Keploy
+func TestPlugin_Examples(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    example := p.Examples()
+    require.Equal(t, "`dig @localhost echo.foo.com`", example)
+}
+

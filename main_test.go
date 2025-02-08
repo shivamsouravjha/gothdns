@@ -2,15 +2,16 @@ package main
 
 import (
 	"context"
+	"os"
+	"syscall"
+	"testing"
+	"time"
+
 	"github.com/learn-dns-security-com/gothdns/internal/config"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 	"go.uber.org/zap"
-	"os"
-	"syscall"
-	"testing"
-	"time"
 )
 
 func TestMainFunction(t *testing.T) {

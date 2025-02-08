@@ -1,13 +1,14 @@
 package ednsformerr
 
 import (
-	"fmt"
-	"github.com/learn-dns-security-com/gothdns/binary"
-	"github.com/miekg/dns"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
-	"testing"
+    "fmt"
+    "github.com/learn-dns-security-com/gothdns/binary"
+    "github.com/miekg/dns"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/require"
+    "go.uber.org/zap"
+    "testing"
+    "github.com/learn-dns-security-com/gothdns/internal/plugin"
 )
 
 func TestPlugin_Reply(t *testing.T) {
@@ -76,3 +77,33 @@ func TestPlugin_Reply(t *testing.T) {
 		})
 	})
 }
+
+// Test generated using Keploy
+func TestPlugin_Description(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    description := p.Description()
+    expected := "This plugin reply FORMERR for any query with EDNS and a valid IP for query without EDNS.\nSupport for A record only."
+    assert.Equal(t, expected, description)
+}
+
+
+// Test generated using Keploy
+func TestPlugin_Examples(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    examples := p.Examples()
+    expected := "`dig @localhost ednsformerr.foo.com +edns`"
+    assert.Equal(t, expected, examples)
+}
+
+
+// Test generated using Keploy
+func TestPlugin_DNSViolation(t *testing.T) {
+    p := NewPlugin(zap.NewNop())
+    violation := p.DNSViolation()
+    expected := plugin.Violation{
+        Identifier: "DVE-2020-0001",
+        Link:       "https://github.com/dns-violations/dns-violations/blob/master/2020/DVE-2020-0001.md",
+    }
+    assert.Equal(t, expected, violation)
+}
+
