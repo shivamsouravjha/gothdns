@@ -1,0 +1,40 @@
+name: e2e PowerDNS
+on:
+  - push
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - uses: actions/checkout@v4
+
+      - name: Run PowerDNS
+        run: |
+          docker run --name pdns-recursor -p 10053:53/udp -p 10053:53/tcp -d -v ./.github/workflows/e2e-powerdns/recursor.yml:/etc/powerdns/recursor.yml  powerdns/pdns-recursor-52:5.2.0
+          sleep 5
+
+      - name: Run gothdns
+        uses: ./.github/actions/e2e
+        with:
+          resolver: pdns-recursor
+          port: 10053
+          static-ip: true
+
+      - name: Debug running containers
+        if: failure()
+        run: |
+          docker ps -a
+
+      - name: Debug pdns-recursor
+        if: failure()
+        run: |
+          docker logs pdns-recursor
+
+      - name: Debug gothdns
+        if: failure()
+        run: |
+          docker logs gothdns

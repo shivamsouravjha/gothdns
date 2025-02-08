@@ -1,0 +1,44 @@
+name: End-to-end testing with running resolver
+inputs:
+  # name of the docker service for the resolver under testing
+  resolver:
+    required: true
+    type: string
+
+  # port for resolver under testing
+  port:
+    required: true
+    type: int
+
+  # plugins gothdns
+  static-ip:
+    required: true
+    type: bool
+runs:
+  using: "composite"
+  steps:
+    - name: Create network
+      shell: bash
+      run: |
+        docker network create --driver=bridge --subnet=192.168.0.0/16 gothdns
+
+    - name: Connect target
+      shell: bash
+      run: |
+        docker network connect --ip "192.168.0.10" gothdns ${{ inputs.resolver }}
+
+    - name: Run gothdns
+      shell: bash
+      run: |
+        docker run -d --name gothdns --network gothdns --ip "192.168.0.11" learndnssecurity/gothdns:main
+        sleep 5
+
+    - name: plugin static-ip
+      shell: bash
+      if: ${{ inputs.static-ip }}
+      run: |
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} static-ip.goth.dns A)
+        
+        echo "output: $output"
+        echo $output | grep "NOERROR"
+        echo $output | grep "127.0.0.1"

@@ -20,14 +20,14 @@ options of the DNS packet. `gothDNS` focus on scenarios that would act as end-to
 - DNS violations as a new feature
 - a clear SDK to write custom modules. It can manipulate whole messages thanks to [miekg/dns](https://github.com/miekg/dns)
 or raw bytes of DNS packet with the [PacketParser](packet/parser.go)
-
-### What is coming soon?
-- GitHub workflow to integrated gothDNS easily
+- reusable GitHub Workflow to test your own resolver
+- integration with PowerDNS recursor
+- automatic plugins documentation generation
 
 ## How to run it?
 
 ```
-docker run -d -p 53:53/udp -p 53:53/tcp --name gothdns learn-dns-security-com/gothdns:main
+docker run -d -p 53:53/udp -p 53:53/tcp --name gothdns learndnssecurity/gothdns:main
 
 dig @127.0.0.1 -p 53 static-ip.foo.com
 ```
