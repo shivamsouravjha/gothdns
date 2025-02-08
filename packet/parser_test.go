@@ -259,3 +259,10 @@ func TestPacketParser_Answer_InvalidQuestion_Error(t *testing.T) {
 	require.Equal(t, PacketSlice{}, ps)
 	require.Error(t, err)
 }
+func TestNewPacketParser_ValidInput(t *testing.T) {
+	input := []byte{0x01, 0x02, 0x03, 0x04}
+	pp, err := NewPacketParser(input)
+	require.NoError(t, err)
+	require.NotNil(t, pp)
+	assert.Equal(t, input, pp.b)
+}

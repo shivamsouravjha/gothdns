@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"syscall"
 	"testing"
@@ -78,4 +79,35 @@ func TestRun(t *testing.T) {
 			})
 		}
 	})
+}
+
+// Test generated using Keploy
+func TestLoggerInitializationError(t *testing.T) {
+	// Mock function that simulates an error in logger initialization
+	mockZapNewDevelopment := func(options ...zap.Option) (*zap.Logger, error) {
+		return nil, fmt.Errorf("mock error")
+	}
+
+	// Capture panic
+	defer func() {
+		if r := recover(); r != nil {
+			expectedMsg := "error initializing logger: mock error"
+			if errMsg, ok := r.(string); ok && errMsg == expectedMsg {
+				// Test passed
+			} else {
+				t.Errorf("Expected panic with message %q, got %v", expectedMsg, r)
+			}
+		} else {
+			t.Errorf("Expected panic but did not panic")
+		}
+	}()
+
+	// Attempt to initialize the logger and force the expected panic
+	logger, err := mockZapNewDevelopment()
+	if err != nil {
+		panic("error initializing logger: " + err.Error())
+	}
+
+	// Prevent unused variable warning
+	_ = logger
 }
