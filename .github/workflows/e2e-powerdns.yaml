@@ -23,6 +23,10 @@ jobs:
           resolver: pdns-recursor
           port: 10053
           static-ip: true
+          ednsformerr: true
+          nodobitsupport: true
+          noednssupport: true
+          wrongid: true
 
       - name: Debug running containers
         if: failure()

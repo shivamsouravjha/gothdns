@@ -14,6 +14,18 @@ inputs:
   static-ip:
     required: true
     type: bool
+  ednsformerr:
+    required: true
+    type: bool
+  nodobitsupport:
+    required: true
+    type: bool
+  noednssupport:
+    required: true
+    type: bool
+  wrongid:
+    required: true
+    type: bool
 runs:
   using: "composite"
   steps:
@@ -37,8 +49,47 @@ runs:
       shell: bash
       if: ${{ inputs.static-ip }}
       run: |
-        output=$(dig @127.0.0.1 -p ${{ inputs.port }} static-ip.goth.dns A)
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} static-ip.goth.dns A +edns)
         
         echo "output: $output"
         echo $output | grep "NOERROR"
         echo $output | grep "127.0.0.1"
+
+    - name: plugin ednsformerr
+      shell: bash
+      if: ${{ inputs.ednsformerr }}
+      run: |
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} edns-formerr.goth.dns A +edns)
+        
+        echo "output: $output"
+        echo $output | grep "NOERROR"
+        echo $output | grep "127.0.0.1"
+
+    - name: plugin nodobitsupport
+      shell: bash
+      if: ${{ inputs.nodobitsupport }}
+      run: |
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} no-dobit-support.goth.dns A +edns)
+        
+        echo "output: $output"
+        echo $output | grep "NOERROR"
+        echo $output | grep "127.0.0.1"
+
+    - name: plugin noednssupport
+      shell: bash
+      if: ${{ inputs.noednssupport }}
+      run: |
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} no-edns-support.goth.dns A +edns)
+        
+        echo "output: $output"
+        echo $output | grep "NOERROR"
+        echo $output | grep "127.0.0.1"
+
+    - name: plugin wrongid
+      shell: bash
+      if: ${{ inputs.noednssupport }}
+      run: |
+        output=$(dig @127.0.0.1 -p ${{ inputs.port }} wrong-id.goth.dns A +edns)
+        
+        echo "output: $output"
+        echo $output | grep "SERVFAIL"
