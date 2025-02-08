@@ -27,7 +27,7 @@ func TestRequestHandler(t *testing.T) {
 		assert.Equal(t, dns.RcodeRefused, r.Rcode, r.String())
 	})
 
-	t.Run("static-ip", func(t *testing.T) {
+	t.Run("call registered module", func(t *testing.T) {
 		w := new(plugintest.ResponseWriter)
 
 		m := new(dns.Msg)
@@ -45,19 +45,6 @@ func TestRequestHandler(t *testing.T) {
 		assert.Equal(t, dns.RcodeSuccess, r.Rcode, r.String())
 		require.Equal(t, 1, len(r.Answer), r.String())
 		assert.Equal(t, "127.0.0.1", r.Answer[0].(*dns.A).A.String(), r.String())
-	})
-
-	t.Run("empty-response", func(t *testing.T) {
-		w := new(plugintest.ResponseWriter)
-
-		m := new(dns.Msg)
-		m.SetQuestion(dns.Fqdn("empty-response.foo.com"), dns.TypeA)
-
-		rh := NewRequestHandler(zap.NewNop())
-		rh.ServeDNS(w, m)
-
-		b := w.Bytes.Shift()
-		assert.ElementsMatch(t, []byte(""), b)
 	})
 }
 

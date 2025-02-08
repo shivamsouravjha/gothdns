@@ -1,8 +1,11 @@
 module github.com/learn-dns-security-com/gothdns
 
-go 1.22.0
+go 1.23
+
+toolchain go1.23.6
 
 require (
+	github.com/Netflix/go-env v0.1.2
 	github.com/miekg/dns v1.1.63
 	github.com/stretchr/testify v1.8.1
 	go.uber.org/goleak v1.3.0
